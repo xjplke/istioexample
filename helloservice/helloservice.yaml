@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: helloservice
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: helloservice
+        version: v1
+    spec:
+      containers:
+      - name: helloservice 
+        image: helloservice:v1
+        imagePullPolicy: None
+        ports:
+        - containerPort: 50051
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloservice
+  labels:
+    app: helloservice
+spec:
+  ports:
+  - port: 50051
+    name: helloservice
+  selector:
+    app: helloservice
