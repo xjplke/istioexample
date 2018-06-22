@@ -13,7 +13,7 @@ spec:
       containers:
       - name: helloservice 
         image: helloservice:v1
-        imagePullPolicy: None
+        imagePullPolicy: Never 
         ports:
         - containerPort: 50051
 ---

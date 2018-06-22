@@ -7,9 +7,9 @@ clean:
 	@- rm hellorest
 	@- docker rmi hellorest:$(version)
 
-service: clean
+hellorest: clean
 	CGO_ENABLED=0 GOOS=linux go build -o hellorest
 
-docker: service
+docker: hellorest 
 	docker build -t hellorest:$(version) .
 

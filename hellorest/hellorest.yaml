@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hellorest
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hellorest
+        version: v1
+    spec:
+      containers:
+      - name: hellorest 
+        image: hellorest:v1
+        env:
+        - name: PORT
+          value: "8123"
+        - name: HELLO_SERVICE
+          value: helloservice
+        - name: HELLO_PORT
+          value: "50051"
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8123
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hellorest
+  labels:
+    app: hellorest
+spec:
+  ports:
+  - port: 8123
+    name: hellorest
+  selector:
+    app: hellorest
